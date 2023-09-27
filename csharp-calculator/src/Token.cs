@@ -12,7 +12,7 @@ namespace Calculator {
      */
     public enum TokenType {
         INTEGER,
-        FLOAT,
+        DOUBLE,
         PLUS,
         MINUS,
         MUL,

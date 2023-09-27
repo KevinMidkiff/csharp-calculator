@@ -43,7 +43,7 @@ public class LexerTests {
             new(TokenType.INTEGER, "2"),
             new(TokenType.PLUS, "+"),
             new(TokenType.LPAREN, "("),
-            new(TokenType.FLOAT, "5.123"),
+            new(TokenType.DOUBLE, "5.123"),
             new(TokenType.DIV, "/"),
             new(TokenType.INTEGER, "22"),
             new(TokenType.RPAREN, ")"),
@@ -51,7 +51,7 @@ public class LexerTests {
             new(TokenType.LPAREN, "("),
             new(TokenType.INTEGER, "55"),
             new(TokenType.MUL, "*"),
-            new(TokenType.FLOAT, "10.0"),
+            new(TokenType.DOUBLE, "10.0"),
             new(TokenType.RPAREN, ")"),
             new(TokenType.PLUS, "+"),
             new(TokenType.INTEGER, "12"),
@@ -84,7 +84,7 @@ public class LexerTests {
             new(TokenType.INTEGER, "2"),
             new(TokenType.PLUS, "+"),
             // NOTE: This is technically not a valid token, but the lexer should detect that
-            new(TokenType.FLOAT, ".55"),
+            new(TokenType.DOUBLE, ".55"),
             new(TokenType.EOF, "<EOF>")
         };
         int expectedPos = 0;
@@ -118,7 +118,7 @@ public class LexerTests {
         Token[] expectedTokens = {
             new(TokenType.INTEGER, "2"),
             new(TokenType.MINUS, "-"),
-            new(TokenType.FLOAT, "-55.4"),
+            new(TokenType.DOUBLE, "-55.4"),
             new(TokenType.MUL, "*"),
             new(TokenType.INTEGER, "-2"),
             new(TokenType.EOF, "<EOF>")
@@ -126,18 +126,18 @@ public class LexerTests {
         int expectedPos = 0;
 
         while (true) {
-                Token nextToken = lex.GetNextToken();
-                Token expected = expectedTokens[expectedPos];
-                if (nextToken.GetTokenType() != expected.GetTokenType()) {
-                    Assert.Fail("Got token: '{0}', Expected: '{1}'", nextToken.GetValue(), expected.GetValue());
-                } else if (nextToken.GetValue() != expected.GetValue()) {
-                    Assert.Fail("Token values do not match: {0} != {1}", nextToken.GetValue(), expected.GetValue());
-                }
-                if (nextToken.IsEOF()) {
-                    break;
-                } else {
-                    expectedPos++;
-                }
+            Token nextToken = lex.GetNextToken();
+            Token expected = expectedTokens[expectedPos];
+            if (nextToken.GetTokenType() != expected.GetTokenType()) {
+                Assert.Fail("Got token: '{0}', Expected: '{1}'", nextToken.GetValue(), expected.GetValue());
+            } else if (nextToken.GetValue() != expected.GetValue()) {
+                Assert.Fail("Token values do not match: {0} != {1}", nextToken.GetValue(), expected.GetValue());
+            }
+            if (nextToken.IsEOF()) {
+                break;
+            } else {
+                expectedPos++;
+            }
         }
 
         Assert.Pass();

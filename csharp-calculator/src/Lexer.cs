@@ -124,7 +124,7 @@ namespace Calculator {
                             }
 
                             sb.Append(this.currentChar);
-                            tempTokenType = TokenType.FLOAT;
+                            tempTokenType = TokenType.DOUBLE;
                         } else if (Char.IsDigit(this.currentChar)) {
                             sb.Append(this.currentChar);
                             if (tempTokenType == TokenType.EOF) {
