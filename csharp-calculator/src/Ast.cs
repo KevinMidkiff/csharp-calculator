@@ -59,7 +59,15 @@ namespace Calculator {
                     case TokenType.PLUS:  return left.Visit() + right.Visit();
                     case TokenType.MINUS: return left.Visit() - right.Visit();
                     case TokenType.MUL:   return left.Visit() * right.Visit();
-                    case TokenType.DIV:   return left.Visit() / right.Visit();
+                    case TokenType.DIV: {
+                        double leftValue = left.Visit();
+                        double rightValue = right.Visit();
+                        // Check if dividing by zero
+                        if (rightValue == 0.0) {
+                            throw new SyntaxError("Attempted divide by zero");
+                        }
+                        return leftValue / rightValue; 
+                    }
                     default:
                         throw new SyntaxError(String.Format("Not an operation: {0}", token.GetValue()));
                 }

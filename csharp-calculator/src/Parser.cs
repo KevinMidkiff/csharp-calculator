@@ -49,12 +49,22 @@ namespace Calculator {
             Ast.Node node;
             switch(this.currentToken.GetTokenType()) {
                 case TokenType.INTEGER: {
-                    node = new Ast.IntNode(Int32.Parse(this.currentToken.GetValue()));
+                    try {
+                        node = new Ast.IntNode(Int32.Parse(this.currentToken.GetValue()));
+                    } catch (OverflowException) {
+                        throw new SyntaxError(
+                            String.Format("Integer value '{0}' out of bounds, must be between [{1}, {2}]", 
+                            this.currentToken.GetValue(), Int32.MinValue, Int32.MaxValue));
+                    }
                     this.Eat(TokenType.INTEGER);
                     break;
                 }
                 case TokenType.DOUBLE: {
-                    node = new Ast.DoubleNode(Double.Parse(this.currentToken.GetValue()));
+                    double value = Double.Parse(this.currentToken.GetValue());
+                    if (Double.IsInfinity(value)) {
+                        throw new SyntaxError(String.Format("Invalid double - {0}", this.currentToken.GetValue()));
+                    }
+                    node = new Ast.DoubleNode(value);
                     this.Eat(TokenType.DOUBLE);
                     break;
                 }

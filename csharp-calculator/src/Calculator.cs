@@ -25,7 +25,12 @@ namespace Calculator {
             // Generate the AST for the expression
             Ast.Node node = parser.Parse();
             // Process and return the expression's result
-            return node.Visit();
+            double result = node.Visit();
+            // Verify the double computed successfully
+            if (Double.IsInfinity(result)) {
+                throw new Panic(String.Format("Uncomputable value for expression: {0}", expression));
+            }
+            return result;
         } 
     } 
 }
