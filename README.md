@@ -1,6 +1,6 @@
 # C# Calculator
 
-C# calculator
+C# calculator.
 
 ## Pre-Requisites 
 
@@ -45,3 +45,8 @@ If in the development process new tests are added, VS Code will not recognize th
 the `.NET: Rebuild` command from the Command-Pallete is executed. If this is not done, 
 then when the `Test: Run All Tests` command is executed any new tests will not be 
 ran.
+
+## References 
+
+The grammar used for parsing the mathematical expressions is based on the following 
+article: https://ruslanspivak.com/lsbasi-part7/.
