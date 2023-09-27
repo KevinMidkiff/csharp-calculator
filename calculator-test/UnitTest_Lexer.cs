@@ -11,9 +11,9 @@ public class LexerTests {
     public void BasicTokenize() {
         Lexer lex = new("2 + 5");
         Token[] expectedTokens = {
-            new(TokenType.INTEGER, "2"),
+            new(TokenType.NUMBER, "2"),
             new(TokenType.PLUS, "+"),
-            new(TokenType.INTEGER, "5"),
+            new(TokenType.NUMBER, "5"),
             new(TokenType.EOF, "<EOF>")
         };
         int expectedPos = 0;
@@ -40,21 +40,21 @@ public class LexerTests {
     public void ComplexTokenize() {
         Lexer lex = new("2 + (5.123 / 22) - (55 * 10.0) + 12");
         Token[] expectedTokens = {
-            new(TokenType.INTEGER, "2"),
+            new(TokenType.NUMBER, "2"),
             new(TokenType.PLUS, "+"),
             new(TokenType.LPAREN, "("),
-            new(TokenType.DOUBLE, "5.123"),
+            new(TokenType.NUMBER, "5.123"),
             new(TokenType.DIV, "/"),
-            new(TokenType.INTEGER, "22"),
+            new(TokenType.NUMBER, "22"),
             new(TokenType.RPAREN, ")"),
             new(TokenType.MINUS, "-"),
             new(TokenType.LPAREN, "("),
-            new(TokenType.INTEGER, "55"),
+            new(TokenType.NUMBER, "55"),
             new(TokenType.MUL, "*"),
-            new(TokenType.DOUBLE, "10.0"),
+            new(TokenType.NUMBER, "10.0"),
             new(TokenType.RPAREN, ")"),
             new(TokenType.PLUS, "+"),
-            new(TokenType.INTEGER, "12"),
+            new(TokenType.NUMBER, "12"),
             new(TokenType.EOF, "<EOF>")
         };
         int expectedPos = 0;
@@ -81,10 +81,10 @@ public class LexerTests {
     public void InvalidFloat() {
         Lexer lex = new("2 + .55");
         Token[] expectedTokens = {
-            new(TokenType.INTEGER, "2"),
+            new(TokenType.NUMBER, "2"),
             new(TokenType.PLUS, "+"),
             // NOTE: This is technically not a valid token, but the lexer should detect that
-            new(TokenType.DOUBLE, ".55"),
+            new(TokenType.NUMBER, ".55"),
             new(TokenType.EOF, "<EOF>")
         };
         int expectedPos = 0;
@@ -116,11 +116,11 @@ public class LexerTests {
     public void NegativeNumber() {
         Lexer lex = new("2 - -55.4 * -2");
         Token[] expectedTokens = {
-            new(TokenType.INTEGER, "2"),
+            new(TokenType.NUMBER, "2"),
             new(TokenType.MINUS, "-"),
-            new(TokenType.DOUBLE, "-55.4"),
+            new(TokenType.NUMBER, "-55.4"),
             new(TokenType.MUL, "*"),
-            new(TokenType.INTEGER, "-2"),
+            new(TokenType.NUMBER, "-2"),
             new(TokenType.EOF, "<EOF>")
         };
         int expectedPos = 0;

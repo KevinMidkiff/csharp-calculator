@@ -73,7 +73,6 @@ namespace Calculator {
         public Token GetNextToken() {
             // State variables for constructing floating point / integer value
             StringBuilder sb = new();
-            TokenType tempTokenType = TokenType.EOF;
 
             // While we are not at the EOF of the expression, attempt to grab the next 
             // token from the expression.
@@ -117,19 +116,13 @@ namespace Calculator {
                         return new Token(TokenType.RPAREN, ")");
                     }
                     default: {
-                        if (this.currentChar == '.') {
+                        if (this.currentChar == '.' || Char.IsDigit(this.currentChar)) {
                             // Check invalid floating point syntax
-                            if (sb.Length == 0) {
+                            if (sb.Length == 0 && this.currentChar == '.') {
                                 throw new SyntaxError("Invalid float format - must have preceding integer");
                             }
 
                             sb.Append(this.currentChar);
-                            tempTokenType = TokenType.DOUBLE;
-                        } else if (Char.IsDigit(this.currentChar)) {
-                            sb.Append(this.currentChar);
-                            if (tempTokenType == TokenType.EOF) {
-                                tempTokenType = TokenType.INTEGER;
-                            }
                         } else {
                             // Unknown character, invalid syntax
                             throw new SyntaxError(String.Format("Unknown character: {0}", this.currentChar));
@@ -143,7 +136,7 @@ namespace Calculator {
 
                         if (!Char.IsDigit(peek) && peek != '.') {
                             // We've reached the end of a float or integer token, return the token
-                            return new Token(tempTokenType, sb.ToString());
+                            return new Token(TokenType.NUMBER, sb.ToString());
                         } else {
                             continue;
                         }

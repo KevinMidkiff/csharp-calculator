@@ -48,24 +48,13 @@ namespace Calculator {
         private Ast.Node Factor() {
             Ast.Node node;
             switch(this.currentToken.GetTokenType()) {
-                case TokenType.INTEGER: {
-                    try {
-                        node = new Ast.IntNode(Int32.Parse(this.currentToken.GetValue()));
-                    } catch (OverflowException) {
-                        throw new SyntaxError(
-                            String.Format("Integer value '{0}' out of bounds, must be between [{1}, {2}]", 
-                            this.currentToken.GetValue(), Int32.MinValue, Int32.MaxValue));
-                    }
-                    this.Eat(TokenType.INTEGER);
-                    break;
-                }
-                case TokenType.DOUBLE: {
+                case TokenType.NUMBER: {
                     double value = Double.Parse(this.currentToken.GetValue());
                     if (Double.IsInfinity(value)) {
-                        throw new SyntaxError(String.Format("Invalid double - {0}", this.currentToken.GetValue()));
+                        throw new SyntaxError(String.Format("Invalid Number (must be valid double) - {0}", this.currentToken.GetValue()));
                     }
                     node = new Ast.DoubleNode(value);
-                    this.Eat(TokenType.DOUBLE);
+                    this.Eat(TokenType.NUMBER);
                     break;
                 }
                 case TokenType.LPAREN: {

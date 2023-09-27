@@ -69,17 +69,6 @@ public class CalcTests {
     }
 
     [Test]
-    public void InvalidExprIntOverflow() {
-        try {
-            // Use integer value that would overflow an int32
-            double result = Calc.Compute("99999999999999999999999 * 123");
-            Assert.Fail("Should have overflowed int32 memory space");
-        } catch (SyntaxError) {
-            Assert.Pass();
-        }
-    }
-
-    [Test]
     public void InvalidExprDoubleOverflow() {
         try {
             // Use integer value that would overflow a double 

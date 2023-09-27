@@ -11,8 +11,7 @@ namespace Calculator {
      * Definition of types of tokens in an expression.
      */
     public enum TokenType {
-        INTEGER,
-        DOUBLE,
+        NUMBER,
         PLUS,
         MINUS,
         MUL,
