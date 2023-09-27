@@ -111,4 +111,35 @@ public class LexerTests {
             Assert.Pass();
         }
     }
+
+    [Test]
+    public void NegativeNumber() {
+        Lexer lex = new("2 - -55.4 * -2");
+        Token[] expectedTokens = {
+            new(TokenType.INTEGER, "2"),
+            new(TokenType.MINUS, "-"),
+            new(TokenType.FLOAT, "-55.4"),
+            new(TokenType.MUL, "*"),
+            new(TokenType.INTEGER, "-2"),
+            new(TokenType.EOF, "<EOF>")
+        };
+        int expectedPos = 0;
+
+        while (true) {
+                Token nextToken = lex.GetNextToken();
+                Token expected = expectedTokens[expectedPos];
+                if (nextToken.GetTokenType() != expected.GetTokenType()) {
+                    Assert.Fail("Got token: '{0}', Expected: '{1}'", nextToken.GetValue(), expected.GetValue());
+                } else if (nextToken.GetValue() != expected.GetValue()) {
+                    Assert.Fail("Token values do not match: {0} != {1}", nextToken.GetValue(), expected.GetValue());
+                }
+                if (nextToken.IsEOF()) {
+                    break;
+                } else {
+                    expectedPos++;
+                }
+        }
+
+        Assert.Pass();
+    }
 }

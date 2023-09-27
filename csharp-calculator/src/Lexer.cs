@@ -88,8 +88,17 @@ namespace Calculator {
                         return new Token(TokenType.PLUS, "+");
                     }
                     case '-': {
-                        this.Advance();
-                        return new Token(TokenType.MINUS, "-");
+                        // Peek next character to check if a digit occurs, if it does, then this 
+                        // will be representing a negative number.
+                        char peek = this.Peek();
+                        if (Char.IsDigit(peek)) {
+                            sb.Append(this.currentChar);
+                            this.Advance();
+                            continue;
+                        } else {
+                            this.Advance();
+                            return new Token(TokenType.MINUS, "-");
+                        }
                     }
                     case '*': {
                         this.Advance();
