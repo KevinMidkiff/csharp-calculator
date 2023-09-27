@@ -10,9 +10,9 @@ namespace Calculator {
             Console.WriteLine("\texpr        - Simple mathematical expression to calculate");
             Console.WriteLine("");
             Console.WriteLine("Examples:");
-            Console.WriteLine($"$ ./{name} \"1 * (3 + 4) / 55\"");
-            Console.WriteLine($"$ ./{name} \"55 + 2\"");
-            Console.WriteLine($"$ ./{name} \"3 / 6\"");
+            Console.WriteLine($"\t$ ./{name} 1 * (3 + 4) / 55");
+            Console.WriteLine($"\t$ ./{name} 55 + 2");
+            Console.WriteLine($"\t$ ./{name} 3 / 6");
         }
         public static int Main(string[] args) {
             if (args.Length == 0) {
